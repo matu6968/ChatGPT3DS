@@ -9,6 +9,7 @@ title = "ChatGPT3DS"
 author = "matu6968"
 description = "Make calls to OpenAI's API (or any other OpenAI compatible API) from your Nintendo 3DS"
 version = "1.2.0"
+icons = {ctr = "icon"}
 
 ## --- Build Options --- ##
 
@@ -29,11 +30,10 @@ version = "1.2.0"
 # [string] @searchPath : Location to search for the elf binaries.
 #                           Default: ""
 [build]
-clean = false
+clean = false # legacy option of lovebrew
 targets = ["ctr"]
 source = "ChatGPT3DS"
-icons = {ctr = "icon"}
-searchPath = ""
+searchPath = "" # legacy option of lovebrew
 packaged = true
 
 ## --- Output Options --- ##
