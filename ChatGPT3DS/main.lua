@@ -23,6 +23,11 @@ if loadedApiKey ~= nil then
     OpenAI.API_KEY = loadedApiKey
 end
 
+loadedEndpoint = love.filesystem.read("endpoint.txt")
+if loadedEndpoint ~= nil then
+    OpenAI.API_URL = loadedEndpoint
+end
+
 local systemMessage = "You are a helpful chatbot."
 local lastQuestion = ""
 local questionResponse = ""
@@ -35,6 +40,7 @@ local menuItems = {
     { "Set System Message", function() SetSystemMessage() end },
     { "Generate Image", function() GenerateImage() end },
     { "Set API Key", function() SetAPIKey() end },
+    { "Set Custom Endpoint", function() SetEndpoint() end },
     { "Settings", function() Settings() end }
 }
 if not HAS_IMAGE_GEN then
@@ -53,8 +59,8 @@ local settingsItems = {
 local menuSelection = 1
 
 local chatModel = 1
-local CHAT_MODELS = {"gpt-3.5-turbo", "gpt-4"}
-local CHAT_COSTS = {0.002, 0.03} -- Cost per 1K tokens
+local CHAT_MODELS = {"gpt-3.5-turbo", "gpt-4", "gpt-4o", "gpt-4o-mini", "o1-preview", "o1-mini"}
+local CHAT_COSTS = {0.002, 0.03, 0.0025, 0.000015, 0.015, 0.003} -- Cost per 1K tokens
 
 local keyboardTrigger = false
 
@@ -234,6 +240,9 @@ function CheckKeyboardTrigger()
         elseif STATE == "continue" then
             love.keyboard.setTextInput({hint = "Continue conversation..."})
         end
+        elseif STATE == "endpoint" then
+            love.keyboard.setTextInput({hint = "Enter a custom OpenAI endpoint URL"})
+        end
         keyboardTrigger = false
     end
 end
@@ -243,6 +252,9 @@ function love.textinput(text)
         if STATE == "api" then
             OpenAI.API_KEY = text
             love.filesystem.write("api_key.txt", text)
+        elseif STATE == "endpoint" then
+            OpenAI.API_URL = text
+            love.filesystem.write("endpoint.txt", text)
         elseif STATE == "system" then
             systemMessage = text
         elseif STATE == "ask" then
@@ -357,6 +369,11 @@ end
 
 function SetAPIKey()
     STATE = "api"
+    keyboardTrigger = true
+end
+
+function SetEndpoint()
+    STATE = "endpoint"
     keyboardTrigger = true
 end
 

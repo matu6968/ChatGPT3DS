@@ -5,10 +5,10 @@
 # [string] @description : Description of the game.
 # [string] @version     : Version of the game in {major}.{minor}.{revision} format.
 [metadata]
-name = "ChatGPT3DS"
-author = "Carson Kompon"
-description = "Make calls to OpenAI's API from your Nintendo 3DS"
-version = "1.1.1"
+title = "ChatGPT3DS"
+author = "matu6968"
+description = "Make calls to OpenAI's API (or any other OpenAI compatible API) from your Nintendo 3DS"
+version = "1.2.0"
 
 ## --- Build Options --- ##
 
@@ -30,10 +30,11 @@ version = "1.1.1"
 #                           Default: ""
 [build]
 clean = false
-targets = ["3ds"]
+targets = ["ctr"]
 source = "ChatGPT3DS"
 icon = "icon"
 searchPath = ""
+packaged = true
 
 ## --- Output Options --- ##
 
