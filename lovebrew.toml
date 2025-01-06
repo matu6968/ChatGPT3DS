@@ -32,7 +32,7 @@ version = "1.2.0"
 clean = false
 targets = ["ctr"]
 source = "ChatGPT3DS"
-icon = "icon"
+icons = {ctr = "icon"}
 searchPath = ""
 packaged = true
 
